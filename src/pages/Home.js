@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'; // navigation between pages
 
 function Home() {
   return (
-    <div>
-      <h1>Welcome to PrepPal</h1>
-      <h3>Click 'Add a New meal' to start prepping!</h3>
+      <div style={{ textAlign: 'center' }}>
+      <h1 className="logo">Nutri-Byte 🥗</h1>
+      <h2 className="slogan">Fuel your week, one prep at a time</h2>
       <Link to="/add-meal">
         <button className='homebutton'>Add a New Meal</button> 
       </Link>

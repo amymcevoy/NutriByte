@@ -1,473 +1,148 @@
-/*Styling done using ChatGPT , We3Schools ans GeeksforGeeks*/ 
+/*Edited using elements from ChatGpt
 
-/* Global body styling */
-body {
+/* Import Google Font for a modern look */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;600&display=swap');
+
+/* Global styles */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: #D97706; /* Orange theme */
-  color: #1E3A8A; /* Navy text */
+  background: #D1E8E2;
+  color: #4A4A4A;
+  padding: 20px;
 }
 
-/* Headings */
-h1 {
-  text-align: center;
-  font-size: 2rem;
+/* Logo Styling */
+.logo {
+  font-size: 3rem;
+  font-family: 'Pacifico', cursive;
+  color: #2D3748;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+/* Slogan Styling */
+.slogan {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #4A5568;
+  letter-spacing: 0.5px;
   margin-bottom: 20px;
-  color: #1E3A8A; /* Navy color for headings */
 }
 
-/* Container styling for form and buttons */
+/* Glassmorphism Form Container */
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90%;
-  max-width: 400px; /* Center the form and limit its width */
-  background-color: #ffffff; /* White background for form */
-  padding: 20px;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  gap: 20px; /* Add consistent spacing between fields and buttons */
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+  gap: 20px;
 }
 
-.form-container button{
-  background-color: #1E3A8A; /* Navy blue */
-  color: white;
-  padding: 12px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer;
-  width: 100%; /* Full width */
-  margin-top: 10px; /* Space between buttons */
-}
-
-textarea {
-  resize: none; /* Disable resizing */
-}
-
-.form-container button:hover {
-  background-color: #0D9488; /* Teal hover effect */
-}
-
-/* Form styling */
-form {
-  width: 80%; /* Full width for form */
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Space between input fields */
-}
-
-.homebutton{
-  width: 100%; /* Full width for consistency with the submit button */
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  background-color: #1E3A8A; /* Navy blue for secondary button */
-  color: white;
-  margin-bottom: 20px;
-}
-
-.homebutton:hover {
-  background-color: #0D9488; /* Teal hover effect for secondary button */
-}
-
-/* Input and textarea styling */
+/* Input Fields */
 form input,
-form textarea {
-  width: 100%; /* Full width inputs */
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #1E3A8A; /* Navy border */
-  border-radius: 8px; /* Rounded corners */
-  color: #1E3A8A; /* Navy text for inputs */
-  background-color: #F3F4F6; /* Light grey for inputs */
-}
-
-form input:focus,
-form textarea:focus {
-  outline: none;
-  border-color: #0D9488; /* Teal for focus state */
-}
-
-/* Submit Button Styling (inside forms) */
-form button {
-  background-color: #1E3A8A; /* Navy blue for submit button */
-  color: white;
-  padding: 12px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 100%; /* Full width buttons */
-}
-
-form button:hover {
-  background-color: #0D9488; /* Teal hover effect for submit button */
-}
-
-/* Secondary button styling (Meal List button) */
-.secondary-button {
-  width: 100%; /* Full width for consistency with the submit button */
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer;
-  background-color: #1E3A8A; /* Navy blue for secondary button */
-  color: white;
-}
-
-.secondary-button:hover {
-  background-color: #0D9488; /* Teal hover effect for secondary button */
-}
-
-.listbuttons{
-  width: 100%; /* Full width for consistency with the submit button */
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer;
-  background-color: #1E3A8A; /* Navy blue for secondary button */
-  color: white;
-  margin-bottom: 20px;
-}
-
-/* List Styling */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 600px;
-}
-
-/* Meal Item Cards */
-li {
-  background-color: #ffffff; /* White background for cards */
-  color: #1E3A8A; /* Navy text for meal details */
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px; /* Rounded corners for card-like appearance */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  text-align: center; /* Center meal details inside card */
-}
-
-/* Meal Details */
-.meal-details strong {
-  font-size: 1.2rem; /* Slightly larger font for meal name */
-  display: block;
-  margin-bottom: 10px;
-}
-
-.meal-details p {
-  margin: 5px 0;
-  font-size: 1rem;
-}
-
-/* Styling done using ChatGPT, W3Schools, and GeeksforGeeks */
-
-/* Global body styling */
-body {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: #D97706; /* Orange theme */
-  color: #1E3A8A; /* Navy text */
-}
-
-/* Headings */
-h1 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #1E3A8A; /* Navy color for headings */
-}
-
-/* Container styling for form and buttons */
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90%;
-  max-width: 400px; /* Center the form and limit its width */
-  background-color: #ffffff; /* White background for form */
-  padding: 20px;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  gap: 20px; /* Add consistent spacing between fields and buttons */
-}
-
-.form-container button {
-  background-color: #1E3A8A; /* Navy blue */
-  color: white;
-  padding: 12px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer;
-  width: 100%; /* Full width */
-  margin-top: 10px; /* Space between buttons */
-}
-
-textarea {
-  resize: none; /* Disable resizing */
-}
-
-.form-container button:hover {
-  background-color: #0D9488; /* Teal hover effect */
-}
-
-/* Form styling */
-form {
-  width: 80%; /* Full width for form */
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Space between input fields */
-}
-
-/* Home button styling */
-.homebutton {
-  width: 100%; /* Full width for consistency with the submit button */
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  background-color: #1E3A8A; /* Navy blue for secondary button */
-  color: white;
-  margin-bottom: 20px;
-}
-
-.homebutton:hover {
-  background-color: #0D9488; /* Teal hover effect for secondary button */
-}
-
-/* Input and textarea styling */
-form input,
-form textarea {
-  width: 100%; /* Full width inputs */
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #1E3A8A; /* Navy border */
-  border-radius: 8px; /* Rounded corners */
-  color: #1E3A8A; /* Navy text for inputs */
-  background-color: #F3F4F6; /* Light grey for inputs */
-}
-
-form input:focus,
-form textarea:focus {
-  outline: none;
-  border-color: #0D9488; /* Teal for focus state */
-}
-
-/* Submit Button Styling (inside forms) */
-form button {
-  background-color: #1E3A8A; /* Navy blue for submit button */
-  color: white;
-  padding: 12px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 100%; /* Full width buttons */
-}
-
-form button:hover {
-  background-color: #0D9488; /* Teal hover effect for submit button */
-}
-
-/* Secondary button styling (Meal List button) */
-.secondary-button {
-  position: absolute;
-  top: 70px; /* Adjust this value to position under the Back button */
-  left: 20px; /* Same alignment as Back button */
-  background-color: #1E3A8A;
-  color: white;
-  font-size: 1rem;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-}
-
-.calorie-counter {
-  padding: 10px;
-  background-color: #F3F4F6; /* Light grey background */
-  color: #1E3A8A; /* Navy text */
-  border: 1px solid #1E3A8A; /* Navy border */
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-left: 10px; /* Space from the back button */
-}
-
-.secondary-button:hover {
-  background-color: #0D9488; /* Teal hover effect for secondary button */
-}
-
-/* List buttons (Edit, Delete, Save) */
-.listbuttons {
-  width: 100%; /* Full width for consistency */
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer;
-  background-color: #1E3A8A; /* Navy blue */
-  color: white;
-  margin-bottom: 20px;
-}
-
-.listbuttons:hover {
-  background-color: #0D9488; /* Teal hover effect */
-}
-
-/* List Styling */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 600px;
-}
-
-/* Meal Item Cards */
-li {
-  background-color: #ffffff; /* White background for cards */
-  color: #1E3A8A; /* Navy text for meal details */
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px; /* Rounded corners for card-like appearance */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  text-align: center; /* Center meal details inside card */
-}
-
-/* Meal Details */
-.meal-details strong {
-  font-size: 1.2rem; /* Slightly larger font for meal name */
-  display: block;
-  margin-bottom: 10px;
-}
-
-.meal-details p {
-  margin: 5px 0;
-  font-size: 1rem;
-}
-
-/* Editable form for meals */
-.edit-form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Space between input fields */
-  width: 90%;
-  max-width: 400px; /* Match AddMeal form styling */
-  background-color: #ffffff; /* Match AddMeal form styling */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
-.edit-form-container input,
-.edit-form-container textarea,
-.edit-form-container select {
+form textarea,
+form select {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 1rem;
-  border: 1px solid #1E3A8A;
-  border-radius: 8px;
-  background-color: #F3F4F6; /* Light grey for inputs */
-  color: #1E3A8A;
-}
-
-.edit-form-container input:focus,
-.edit-form-container textarea:focus,
-.edit-form-container select:focus {
-  outline: none;
-  border-color: #0D9488; /* Teal for focus */
-}
-
-
-/* Action Buttons (Edit, Delete) */
-.action-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px; /* Space between buttons */
-}
-
-
-/* Back button styling */
-button.back-btn {
-  position: absolute; /* Fix to a specific position */
-  top: 20px;
-  left: 20px;
-  background-color: #1E3A8A; /* Navy blue */
-  color: white;
-  font-size: 1rem;
-  padding: 10px 15px; /* Proper padding for button */
   border: none;
-  border-radius: 8px; /* Rounded corners */
+  border-radius: 10px;
+  background: #FFF5F5;
+  color: #4A4A4A;
+  outline: none;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  background: #FFE8E8;
+}
+
+/* Buttons */
+button, .secondary-button, .homebutton, .listbuttons, .addbutton, .back-btn {
+  margin: 10px 0;
+  background: #F8C8DC;
+  color: #4A4A4A;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
-  width: auto; /* Remove full width */
+  width: 100%;
+  font-weight: 500;
 }
-select {
-  width: 100%; /* Responsive width */
-  margin: 10px auto;
-  padding: 10px;
+
+button:hover, .secondary-button:hover, .homebutton:hover, .listbuttons:hover, .addbutton:hover, .back-btn:hover {
+  background: #FFB6C1;
+  transform: translateY(-2px);
+}
+
+/* List Styling */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+/* Meal Item Cards */
+li {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  color: #4A4A4A;
+  transition: transform 0.3s ease-in-out;
+}
+
+li:hover {
+  transform: translateY(-5px);
+}
+
+/* Meal Details */
+.meal-details strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.meal-details p {
+  margin: 5px 0;
   font-size: 1rem;
-  border: 1px solid #1E3A8A;
-  color: #1E3A8A;
-  border-radius: 8px;
-}
-
-select:focus {
-  outline: none;
-  border-color: #0D9488;
-}
-
-button.back-btn:hover {
-  background-color: #0D9488; /* Teal hover for back button */
-}
-
-button.addbutton{
-  position: absolute;
-  top: 70px; /* Adjust this value to position under the Back button */
-  left: 20px; /* Same alignment as Back button */
-  background-color: #1E3A8A;
-  color: white;
-  font-size: 1rem;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
-
-  ul {
-    width: 90%;
-  }
-
-  li {
+  .form-container {
+    width: 95%;
     padding: 15px;
   }
 
-  button {
-    width: 100%; /* Full-width buttons on small screens */
+  button, .secondary-button, .homebutton, .listbuttons, .addbutton, .back-btn {
+    width: 100%;
+    padding: 14px;
   }
 }
 
