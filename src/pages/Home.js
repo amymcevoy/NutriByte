@@ -13,6 +13,9 @@ function Home() {
       <Link to="/meal-list">
         <button className='homebutton'>View Saved Meals</button>
       </Link>
+      <Link>
+      <button>Search Recipes</button>
+      </Link>
 
     </div>
   );
