@@ -150,8 +150,8 @@ function MealList() {
                       <p>Ingredients: {meal.ingredients}</p>
                       <p>Calories: {meal.calories}</p>
                       <p>Instructions: {meal.instructions}</p>
-                      <button className="listbuttons" onClick={() => handleEdit(index)}>Edit</button> 
-                      <button className="listbuttons" onClick={() => handleDelete(index)}>Delete</button> 
+                      <button className="listbuttons" onClick={() => handleEdit(meal.id)}>Edit</button> 
+                      <button className="listbuttons" onClick={() => handleDelete(meal.id)}>Delete</button> 
                     </div>
                   )}
                 </li>
