@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import axios from 'axios';  //for http requests
+import { db, addDoc, collection } from './firebase';
 
 function AddMeal() {
 
@@ -27,7 +27,7 @@ function AddMeal() {
   };
 
   // form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
       // form validation
@@ -41,22 +41,30 @@ function AddMeal() {
         return; 
       }
 
-    //send data to the backend API using Axios
-    axios.post('http://localhost:4000/api/meals', meal)
-      .then((response) => {
-        console.log(response.data); //logs response
+      try {
+        // Send data to Firebase Firestore
+        await addDoc(collection(db, 'meals'), {
+          name: meal.name,
+          ingredients: meal.ingredients,
+          calories: meal.calories,
+          instructions: meal.instructions,
+          category: meal.category
+        });
+  
+        // Reset form after successful submission
         setMeal({
           name: '',
           ingredients: '',
           calories: '',
           instructions: '',
+          category: ''
         });
-        setSubmitted(true);
-      })
-      .catch((error) => {
+  
+        setSubmitted(true); // Show success message
+      } catch (error) {
         console.error('Error adding meal:', error);
-      });
-  };
+      }
+    };
   
   const handleBack = () => {
     navigate(-1); //brings you back a page
