@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { db, addDoc, collection } from './firebase';
+import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from '../firebase'; // Adjust path
 
 function AddMeal() {
 
@@ -42,6 +42,9 @@ function AddMeal() {
       }
 
       try {
+           // Debugging: log submission to Firestore
+          console.log("Submitting meal to Firestore:", meal);
+
         // Send data to Firebase Firestore
         await addDoc(collection(db, 'meals'), {
           name: meal.name,

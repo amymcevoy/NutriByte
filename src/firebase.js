@@ -1,8 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, getDocs, deleteDoc, doc, updateDoc,addDoc } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { setLogLevel } from "firebase/firestore";
+setLogLevel("debug"); // This will log Firestore debug information to the console
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -18,4 +20,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app); 
+
+export { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import axios from 'axios';
+import { db, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from '../firebase'; // Adjust path
 import { Link } from 'react-router-dom';
 
 function MealList() {
@@ -15,29 +15,25 @@ function MealList() {
 
   useEffect(() => {
     //fetch meals from backend
-    axios.get('http://localhost:4000/api/meals')
-    .then(response => {
-      setMeals(response.data.meals); //set meals from the backend
-    })
-    .catch(error => {
-      console.error('Error fetching meals:', error);
-    });
-}, []);
-    
-    //delete a meal
-    const handleDelete = (index) => {
-        const mealToDelete = meals[index];
-        console.log(`Deleting meal with ID: ${mealToDelete._id}`);//check if deletion is working
-
-        axios.delete(`http://localhost:4000/api/meals/${mealToDelete._id}`)
-          .then(() => {
-            const updatedMeals = meals.filter((_, i) => i !== index); //remove deleted mea
-            setMeals(updatedMeals); //update
-          })
-          .catch(error => {
-            console.error('Error deleting meal:', error);
-          });
+    const fetchMeals = async () => {
+      const mealsCollection = collection(db, 'meals');
+      const mealSnapshot = await getDocs(mealsCollection);
+      const mealList = mealSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setMeals(mealList);
     };
+    fetchMeals();
+  }, []);
+
+    //delete a meal
+    const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'meals', id)); // Delete meal from Firestore
+      console.log("Meal deleted successfully");
+      setMeals(meals.filter(meal => meal.id !== id)); // Remove deleted meal from local state
+    } catch (error) {
+      console.error('Error deleting meal:', error);
+    }
+  };
 
     //edit a meal
     const handleEdit = (index) => {
@@ -55,23 +51,18 @@ function MealList() {
     };
    
     //save meal after changed
-    const handleSave = () => {
-        const originalMeals = [...meals]; 
-        const updatedMeals = [...meals];
-        updatedMeals[editIndex] = editMeal; //update edited meal in array
+    const handleSave = async () => {
 
-            //update meal in backend
-            axios.put(`http://localhost:4000/api/meals/${editMeal._id}`, editMeal)
-                .then(response => {
-                    setMeals(updatedMeals); //update meals
-                    setEditIndex(null); //exit editing
-            })
-            .catch(error => {
-                console.error('Error saving meal:', error);
-                setMeals(originalMeals); // go back to normal if failed
-        });
+      try {
+        const mealDoc = doc(db, 'meals', editMeal.id); // Reference to the document
+        await updateDoc(mealDoc, editMeal); // Update meal in Firestore
+        setMeals(meals.map(meal => (meal.id === editMeal.id ? editMeal : meal))); // Update local meals state
+        setEditIndex(null); // Exit editing mode
+      } catch (error) {
+        console.error('Error saving meal:', error);
+      }
     };
-
+    
     // Back button function
     const handleBack = () => {
     navigate(-1);  // Navigate back to the previous page
