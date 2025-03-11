@@ -1,21 +1,16 @@
-// Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, deleteDoc, doc, updateDoc,addDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, deleteDoc, doc, updateDoc, addDoc } from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
-import { setLogLevel } from "firebase/firestore";
-setLogLevel("debug"); // This will log Firestore debug information to the console
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Load environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyDRLX77vGbemI_dgBpFXOluzmEb3slbukg",
-  authDomain: "nutribyte123-13cd4.firebaseapp.com",
-  projectId: "nutribyte123-13cd4",
-  storageBucket: "nutribyte123-13cd4.firebasestorage.app",
-  messagingSenderId: "263542581655",
-  appId: "1:263542581655:web:cddc7b624b03339c4ebcd2",
-  measurementId: "G-8L998LN3S1"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase

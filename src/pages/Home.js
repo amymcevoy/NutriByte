@@ -13,7 +13,7 @@ function Home() {
       <Link to="/meal-list">
         <button className='homebutton'>View Saved Meals</button>
       </Link>
-      <Link>
+      <Link to="/recipe-suggest">
       <button>Search Recipes</button>
       </Link>
 

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Im
 import Home from './pages/Home'; // Import Home Page
 import AddMeal from './pages/AddMeal'; // Import AddMeal Page
 import MealList from './pages/MealList'; 
+import RecipeSuggestion from "./pages/RecipeSuggestion"; 
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} /> 
         <Route path="/add-meal" element={<AddMeal />} /> 
         <Route path="/meal-list" element={<MealList />} />
+        <Route path="/recipe-suggest" element={<RecipeSuggestion/>}/>
       </Routes>
     </Router>
   );
