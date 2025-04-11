@@ -105,7 +105,7 @@ ul {
 }
 
 /* Meal Item Cards */
-li {
+li.meal-item {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
   padding: 20px;
@@ -116,6 +116,7 @@ li {
   color: #4A4A4A;
   transition: transform 0.3s ease-in-out;
 }
+
 
 li:hover {
   transform: translateY(-5px);
@@ -145,4 +146,27 @@ li:hover {
     padding: 14px;
   }
 }
+
+li {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+  gap: 20px;
+}
+
+
 
