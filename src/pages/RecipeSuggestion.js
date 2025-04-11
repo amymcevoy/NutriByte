@@ -3,42 +3,49 @@ import { HfInference } from "@huggingface/inference";
 
 // Load API key
 const apiKey = process.env.REACT_APP_HUGGINGFACE_API_KEY;
-const API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct";
 const hf = new HfInference(apiKey);
 
 async function getRecipe(ingredients) {
-  console.log("Using API Key:", process.env.REACT_APP_HUGGINGFACE_API_KEY);
+  const API_URL = "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1";
+
+  console.log("Loaded HuggingFace API Key:", process.env.REACT_APP_HUGGINGFACE_API_KEY);
 
   try {
-    const response = await fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct", {
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.REACT_APP_HUGGINGFACE_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        inputs: `Create a recipe using only these ingredients: ${ingredients.join(", ")}. Format the response as:
-          Title:
-          Ingredients:
-          Instructions:`
+        inputs: `
+            You are a professional chef AI. Using only these ingredients: ${ingredients.join(", ")},
+            write a realistic recipe with the following format:
+
+            Title:
+            Ingredients:
+            Instructions:
+    
+          `
       })
     });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status} ${response.statusText}`);
+    }
 
     const data = await response.json();
     console.log("API Response:", data);
 
-    if (data && data[0] && data[0].generated_text) {
-      return data[0].generated_text;
-    } else {
-      return "No valid recipe found. Try different ingredients!";
+    if (data && data[0]) {
+      console.log("Returned text:", data[0].generated_text || data[0].text || JSON.stringify(data[0]));
+      return data[0].generated_text || data[0].text || JSON.stringify(data[0]);
     }
   } catch (error) {
     console.error("Error fetching AI recipe:", error);
     return "Failed to fetch recipe. Please try again.";
   }
 }
-
-
 
 function RecipeSuggestion() {
   const [recipe, setRecipe] = useState("");  //  useState is now defined
@@ -73,7 +80,8 @@ function RecipeSuggestion() {
         <div className="form-container mt-6 text-left">
           <h3 className="text-xl font-bold text-green-800 mb-2">Suggested Recipe</h3>
           {(() => {
-            const lines = recipe.split("\n").map(line => line.trim()).filter(Boolean);
+        const lines = recipe.split("\n").map(line => line.trim()).filter(Boolean);
+            
             let title = null;
             const ingredients = [];
             const instructions = [];
