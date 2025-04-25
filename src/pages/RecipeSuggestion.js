@@ -1,4 +1,55 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React, { useState } from "react";  // Import useState
+import { HfInference } from "@huggingface/inference";
+
+// Load API key
+const apiKey = process.env.REACT_APP_HUGGINGFACE_API_KEY;
+const hf = new HfInference(apiKey);
+
+async function getRecipe(ingredients) {
+  const API_URL = "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1";
+
+  console.log("Loaded HuggingFace API Key:", process.env.REACT_APP_HUGGINGFACE_API_KEY);
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.REACT_APP_HUGGINGFACE_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        inputs: `
+            You are a professional chef AI. Using only these ingredients: ${ingredients.join(", ")},
+            write a realistic recipe with the following format:
+
+            Title:
+            Ingredients:
+            Instructions:
+    
+          `
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("API Response:", data);
+
+    if (data && data[0]) {
+      console.log("Returned text:", data[0].generated_text || data[0].text || JSON.stringify(data[0]));
+      return data[0].generated_text || data[0].text || JSON.stringify(data[0]);
+    }
+  } catch (error) {
+    console.error("Error fetching AI recipe:", error);
+    return "Failed to fetch recipe. Please try again.";
+  }
+}
+>>>>>>> parent of 9f46498 (Resolved conflict: kept updated prompt for AI)
 
 function RecipeSuggestion() {
   const [recipe, setRecipe] = useState("");  // For storing the raw recipe data
