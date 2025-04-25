@@ -25,7 +25,8 @@ async function getRecipe(ingredients) {
             Title:
             Ingredients:
             Instructions:
-    
+            1. 
+            2. 
           `
       })
     });
