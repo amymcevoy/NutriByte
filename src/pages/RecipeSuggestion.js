@@ -7,9 +7,10 @@ const API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7
 const hf = new HfInference(apiKey);
 
 async function getRecipe(ingredients) {
-  console.log("Using API Key:", process.env.REACT_APP_HUGGINGFACE_API_KEY);
 
-  try {
+    console.log("Using API Key:", process.env.REACT_APP_HUGGINGFACE_API_KEY);
+
+ try {
     const response = await fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct", {
       method: "POST",
       headers: {
@@ -36,10 +37,8 @@ async function getRecipe(ingredients) {
   }
 }
 
-
-
 function RecipeSuggestion() {
-  const [recipe, setRecipe] = useState("");  // ✅ useState is now defined
+  const [recipe, setRecipe] = useState(""); 
   const [ingredients, setIngredients] = useState("");
 
   const handleSubmit = async (e) => {
@@ -63,6 +62,8 @@ function RecipeSuggestion() {
       </form>
       {recipe && <p>{recipe}</p>}
     </div>
+
+    
   );
 }
 
