@@ -1,36 +1,24 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
-import React, { useState } from "react";  // Import useState
+import React, { useState } from "react"; 
 import { HfInference } from "@huggingface/inference";
 
-// Load API key
-const apiKey = process.env.REACT_APP_HUGGINGFACE_API_KEY;
+// Set up Hugging Face API Key
+const apiKey = process.env.REACT_APP_HUGGINGFACE_API_KEY; // Make sure your Hugging Face API key is in your .env
+
 const hf = new HfInference(apiKey);
 
 async function getRecipe(ingredients) {
   const API_URL = "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1";
 
-  console.log("Loaded HuggingFace API Key:", process.env.REACT_APP_HUGGINGFACE_API_KEY);
-
   try {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.REACT_APP_HUGGINGFACE_API_KEY}`,
-        "Content-Type": "application/json"
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        inputs: `
-            You are a professional chef AI. Using only these ingredients: ${ingredients.join(", ")},
-            write a realistic recipe with the following format:
-
-            Title:
-            Ingredients:
-            Instructions:
-    
-          `
-      })
+        inputs: `You are a professional chef AI. Using only these ingredients: ${ingredients.join(", ")}, write a realistic recipe with the following format:\n\nTitle: [title]\nIngredients: [ingredients]\nInstructions: [instructions]`,
+      }),
     });
 
     if (!response.ok) {
@@ -38,47 +26,29 @@ async function getRecipe(ingredients) {
     }
 
     const data = await response.json();
-    console.log("API Response:", data);
-
-    if (data && data[0]) {
-      console.log("Returned text:", data[0].generated_text || data[0].text || JSON.stringify(data[0]));
-      return data[0].generated_text || data[0].text || JSON.stringify(data[0]);
-    }
+    return data[0]?.generated_text || data[0]?.text || "Failed to generate recipe.";
   } catch (error) {
-    console.error("Error fetching AI recipe:", error);
-    return "Failed to fetch recipe. Please try again.";
+    console.error("Error fetching recipe from Hugging Face:", error);
+    return "Failed to generate recipe.";
   }
 }
->>>>>>> parent of 9f46498 (Resolved conflict: kept updated prompt for AI)
 
 function RecipeSuggestion() {
-  const [recipe, setRecipe] = useState("");  // For storing the raw recipe data
-  const [ingredients, setIngredients] = useState("");  // For storing the user's input ingredients
+  const [recipe, setRecipe] = useState("");
+  const [ingredients, setIngredients] = useState("");
 
-  const [title, setTitle] = useState("");  // For storing the parsed recipe title
-  const [ingredientsList, setIngredientsList] = useState([]);  // For storing the list of ingredients
-  const [instructionsList, setInstructionsList] = useState([]);  // For storing the list of instructions
+  const [title, setTitle] = useState("");
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [instructionsList, setInstructionsList] = useState([]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();  // Prevent form from refreshing the page
-    const ingredientList = ingredients.split(",").map((ing) => ing.trim()); // Format the ingredients
+    e.preventDefault();
+    const ingredientList = ingredients.split(",").map((ing) => ing.trim());
+    const result = await getRecipe(ingredientList);
+    setRecipe(result);
 
-    // Send the ingredients to the backend to generate a recipe
-    const response = await fetch("http://localhost:5000/generate-recipe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ingredients: ingredientList }),  // Send ingredients as JSON
-    });
-
-    const data = await response.json();  // Parse the response from the backend
-    
-    const recipeData = data.recipe;  // Store the recipe returned from the backend
-    
-    // Parse the recipeData immediately after receiving it
-    const lines = recipeData.split("\n").map(line => line.trim()).filter(Boolean);
-
+    // Parsing the recipe text into title, ingredients, and instructions
+    const lines = result.split("\n").map(line => line.trim()).filter(Boolean);
     let parsedTitle = null;
     let inIngredients = false;
     let inInstructions = false;
@@ -86,7 +56,6 @@ function RecipeSuggestion() {
     const parsedIngredients = [];
     const parsedInstructions = [];
 
-    // Parse the recipe data to extract title, ingredients, and instructions
     lines.forEach((line) => {
       const lower = line.toLowerCase();
 
@@ -107,8 +76,6 @@ function RecipeSuggestion() {
       }
     });
 
-    // Update the state with the parsed data
-    setRecipe(recipeData);
     setTitle(parsedTitle);
     setIngredientsList(parsedIngredients);
     setInstructionsList(parsedInstructions);
@@ -137,9 +104,6 @@ function RecipeSuggestion() {
           <h3 className="text-xl font-bold text-green-800 mb-2">Suggested Recipe</h3>
 
           <div className="mt-4 text-left">
-            {title && (
-              <h3 className="text-lg font-bold text-green-800 mb-2">{title}</h3>
-            )}
 
             {ingredientsList.length > 0 && (
               <>
