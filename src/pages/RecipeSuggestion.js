@@ -1,29 +1,4 @@
 import React, { useState , useEffect} from "react"; 
-import OpenAI from "openai"; 
-
-const openai = new OpenAI({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,  
-});
-
-console.log("OpenAI API Key:", process.env.REACT_APP_OPENAI_API_KEY);
-
-async function getRecipe(ingredients){
-  const prompt = `Create a recipe using the following ingredients: ${ingredients.join(", ")}. Format the response as follows: Title: [title], Ingredients: [ingredients], Instructions: [instructions].`;
-  try {
-      const response = await openai.createCompletion({
-      model: "gpt-4",  
-      prompt: prompt,
-      max_tokens: 150, 
-    });
-
-    const result = response.data.choices[0].text;
-    console.log("API Response:", result);
-    return result;  
-  } catch (error) {
-    console.error("Error fetching recipe from OpenAI:", error);
-    return "Failed to generate recipe.";
-  }
-}
 
 function RecipeSuggestion() {
   const [recipe, setRecipe] = useState("");
@@ -36,12 +11,18 @@ function RecipeSuggestion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const ingredientList = ingredients.split(",").map((ing) => ing.trim());
-    const result = await getRecipe(ingredientList);
-    setRecipe(result);
-  };
+    const response = await fetch("http://localhost:5000/generate-recipe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",  
+      },
+      body: JSON.stringify({ ingredients: ingredientList }),
+    });
 
-  useEffect(() => {
-    if (recipe) {
+    const data = await response.json(); 
+        
+    setRecipe(data.recipe);
+    
       const lines = recipe.split("\n").map(line => line.trim()).filter(Boolean);
                   
       let parsedTitle = null;
