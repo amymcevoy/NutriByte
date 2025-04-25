@@ -8,7 +8,7 @@ function MealList() {
   const [editIndex, setEditIndex] = useState(null); 
   const [editMeal, setEditMeal] = useState({});
   const [filterCategory, setFilterCategory] = useState("");
-  const totalCalories = meals.reduce((total, meal) => total + (meal.calories || 0), 0);
+  const [totalCalories] = useState(0);
 
 
   const navigate = useNavigate();
@@ -72,13 +72,6 @@ function MealList() {
         <div className="edit-form-container">
           <h1>Saved Meals</h1>
           <button className="back-btn" onClick={handleBack}>Back</button>
-
-          <div className="calorie-counter">
-          <h2>Total Calories: {totalCalories}</h2>
-          {totalCalories > 2000 && (
-            <p style={{ color: 'red' }}>Warning: You've exceeded your daily calorie limit!</p>
-          )}
-          </div>
 
                 <Link to="/add-meal">
                   <button className='addbutton'>Add a New Meal</button> 
@@ -150,7 +143,7 @@ function MealList() {
                       <p>Ingredients: {meal.ingredients}</p>
                       <p>Calories: {meal.calories}</p>
                       <p>Instructions: {meal.instructions}</p>
-                      <button className="listbuttons" onClick={() => handleEdit(meal.id)}>Edit</button> 
+                      <button className="listbuttons" onClick={() => handleEdit(index)}>Edit</button> 
                       <button className="listbuttons" onClick={() => handleDelete(meal.id)}>Delete</button> 
                     </div>
                   )}
