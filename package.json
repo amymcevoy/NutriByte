@@ -9,6 +9,7 @@
     "cra-template": "1.2.0",
     "express": "^5.1.0",
     "firebase": "^11.4.0",
+    "openai": "^4.96.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.2",

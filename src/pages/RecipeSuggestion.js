@@ -1,5 +1,6 @@
-import React, { useState } from "react";  // Import useState
+import React, { useState } from "react"; 
 import { HfInference } from "@huggingface/inference";
+import { useNavigate } from "react-router-dom";
 
 // Load API key
 const apiKey = process.env.REACT_APP_HUGGINGFACE_API_KEY;
@@ -25,8 +26,6 @@ async function getRecipe(ingredients) {
             Title:
             Ingredients:
             Instructions:
-            1. 
-            2. 
           `
       })
     });
@@ -115,35 +114,33 @@ function RecipeSuggestion() {
                   <h3 className="text-lg font-bold text-green-800 mb-2">{title}</h3>
                 )}
 
-{ingredients.length > 0 && (
-                  <>
-                    <h4 className="mt-4 font-semibold text-green-700 text-lg mb-2">🥬 Ingredients</h4>
-                    <ul className="list-disc pl-5 text-gray-700 space-y-1">
-                      {ingredients.map((item, idx) => (
-                        <li key={`ingredient-${idx}`}>{item}</li>
-                      ))}
-                    </ul>
-                  </>
-                )}
+              {ingredients.length > 0 && (
+                                <>
+                                  <h4 className="mt-4 font-semibold text-green-700 text-lg mb-2">🥬 Ingredients</h4>
+                                  <ul className="list-disc pl-5 text-gray-700 space-y-1">
+                                    {ingredients.map((item, idx) => (
+                                      <li key={`ingredient-${idx}`}>{item}</li>
+                                    ))}
+                                  </ul>
+                                </>
+                              )}
 
-{instructions.length > 0 && (
-  <>
-    <h4 className="mt-4 font-semibold text-green-700 text-lg mb-2">👨‍🍳 Instructions</h4>
-    <ol className="pl-6 space-y-3 border-l-4 border-pink-300">
-      {instructions.map((step, idx) => (
-        <li
-        key={`step-${idx}`}
-        className="text-gray-800 text-base leading-relaxed"
-      >
-        {step.replace(/^\d+\.*\s*/, "")}
-      </li>
-      
-      ))}
-    </ol>
-  </>
-)}
-
-
+              {instructions.length > 0 && (
+                <>
+                  <h4 className="mt-4 font-semibold text-green-700 text-lg mb-2">👨‍🍳 Instructions</h4>
+                  <ol className="pl-6 space-y-3 border-l-4 border-pink-300">
+                    {instructions.map((step, idx) => (
+                      <li
+                      key={`step-${idx}`}
+                      className="text-gray-800 text-base leading-relaxed"
+                    >
+                      {step.replace(/^\d+\.*\s*/, "")}
+                    </li>
+                    
+                    ))}
+                  </ol>
+                </>
+              )}
               </div>
             );
           })()}
